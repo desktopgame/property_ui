@@ -6,6 +6,13 @@ import 'package:code_builder/code_builder.dart';
 import 'package:property_ui_annotation/property_ui_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 
+class PropertyInfo {
+  final FieldElement field;
+  final Property prop;
+
+  const PropertyInfo(this.field, this.prop);
+}
+
 class PropertyUIGenerator extends Generator {
   @override
   FutureOr<String> generate(LibraryReader library, BuildStep buildStep) {
@@ -35,9 +42,9 @@ class PropertyUIGenerator extends Generator {
     return sb.toString();
   }
 
-  List<Property> _collectAnnotations(ClassElement e) {
+  List<PropertyInfo> _collectAnnotations(ClassElement e) {
     const checker = TypeChecker.fromRuntime(Property);
-    List<Property> ret = [];
+    List<PropertyInfo> ret = [];
     for (var field in e.fields) {
       if (checker.hasAnnotationOfExact(field)) {
         var a = checker.firstAnnotationOfExact(field);
@@ -51,7 +58,7 @@ class PropertyUIGenerator extends Generator {
             minValue: a.getField("minValue").toDoubleValue(),
             maxValue: a.getField("maxValue").toDoubleValue(),
             readonly: a.getField("readonly").toBoolValue());
-        ret.add(prop);
+        ret.add(PropertyInfo(field, prop));
       }
     }
     return ret;
@@ -100,8 +107,8 @@ class PropertyUIGenerator extends Generator {
     if (e.fields.length == 0) {
       return "";
     }
-    var props = _collectAnnotations(e);
-    if (props.length == 0) {
+    var propInfos = _collectAnnotations(e);
+    if (propInfos.length == 0) {
       return "";
     }
     const stringChecker = TypeChecker.fromRuntime(String);
@@ -153,8 +160,9 @@ class PropertyUIGenerator extends Generator {
     buffer.writeln("  @override");
     buffer.writeln("  void initState() {");
     buffer.writeln('    super.initState();');
-    for (int i = 0; i < e.fields.length; i++) {
-      var field = e.fields[i];
+    for (int i = 0; i < propInfos.length; i++) {
+      var propInfo = propInfos[i];
+      var field = propInfo.field;
       if (stringChecker.isExactlyType(field.type)) {
         buffer.writeln(
             '    _${field.name}Controller = TextEditingController()..text = _target.${field.name};');
@@ -169,9 +177,10 @@ class PropertyUIGenerator extends Generator {
     buffer.writeln("  Widget build(BuildContext context) {");
     buffer.writeln('    return _scrollableColumn(context, [');
     buffer.writeln("      ..._header,");
-    for (int i = 0; i < e.fields.length; i++) {
-      var field = e.fields[i];
-      var prop = props[i];
+    for (int i = 0; i < propInfos.length; i++) {
+      var propInfo = propInfos[i];
+      var field = propInfo.field;
+      var prop = propInfo.prop;
       var readonly = prop.readonly ? "true" : "false";
       if (stringChecker.isExactlyType(field.type)) {
         buffer.write(
