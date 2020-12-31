@@ -37,7 +37,7 @@ class PropertyUIGenerator extends Generator {
 
   List<Property> _collectAnnotations(ClassElement e) {
     const checker = TypeChecker.fromRuntime(Property);
-    var ret = List<Property>();
+    List<Property> ret = [];
     for (var field in e.fields) {
       if (checker.hasAnnotationOfExact(field)) {
         var a = checker.firstAnnotationOfExact(field);
