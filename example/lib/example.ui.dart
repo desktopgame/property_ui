@@ -104,12 +104,13 @@ class ExampleUIState extends State<ExampleUI> {
 
   Widget _scrollableColumn(BuildContext context, List<Widget> children) {
     return SingleChildScrollView(
-        child: Container(
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        children: children,
+      child: ListView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemBuilder: (context, i) => SizedBox(height: 50, child: children[i]),
+        itemCount: children.length,
       ),
-    ));
+    );
   }
 
   Widget _inputString(String name, String hint, bool readonly,

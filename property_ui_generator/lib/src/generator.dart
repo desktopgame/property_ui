@@ -219,8 +219,13 @@ class PropertyUIGenerator extends Generator {
     buffer.writeln(
         "  Widget _scrollableColumn(BuildContext context, List<Widget> children) {");
     buffer.writeln("    return SingleChildScrollView(");
+    buffer.writeln("      child: ListView.builder(");
+    buffer.writeln("        shrinkWrap: true,");
+    buffer.writeln("        physics: NeverScrollableScrollPhysics(),");
     buffer.writeln(
-        "      child: Container(height: MediaQuery.of(context).size.height, child: Column(children: children,),));");
+        "        itemBuilder: (context, i) => SizedBox(height: 50, child: children[i]),");
+    buffer.writeln("        itemCount: children.length,");
+    buffer.writeln("    ),);");
     buffer.writeln("  }");
     buffer.writeln("");
     buffer.writeln(
