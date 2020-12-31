@@ -11,6 +11,10 @@ environment:
 dependencies:
   #flutter:
   #  sdk: flutter
+  build: ^1.6.0
+  analyzer: ^0.41.1
+  source_gen: ^0.9.10+1
+  code_builder: ^3.5.0
   property_ui_annotation:
     path: ../property_ui_annotation
 
