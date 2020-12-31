@@ -1,7 +1,7 @@
 name: property_ui_generator
 description: A new Flutter package project.
 version: 0.0.1
-author:
+#author:
 homepage: https://github.com/desktopgame/property_ui
 
 environment:
