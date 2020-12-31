@@ -15,8 +15,7 @@ dependencies:
   analyzer: ^0.41.1
   source_gen: ^0.9.10+1
   code_builder: ^3.5.0
-  property_ui_annotation:
-    path: ../property_ui_annotation
+  property_ui_annotation: ^1.0.0
 
 dev_dependencies:
   #flutter_test:
