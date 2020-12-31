@@ -1,7 +1,7 @@
-library property_ui_generator;
+import 'package:build/build.dart';
+import 'package:source_gen/source_gen.dart';
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+import 'src/generator.dart';
+
+Builder propertyUIBuilder(BuilderOptions options) =>
+    LibraryBuilder(PropertyUIGenerator(), generatedExtension: ".ui.dart");
