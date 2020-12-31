@@ -1,5 +1,5 @@
 name: property_ui_generator
-description: generate gui code for edit on class fields from class.
+description: generate GUI code for edit on class fields from class.
 version: 0.0.1
 #author:
 homepage: https://github.com/desktopgame/property_ui
