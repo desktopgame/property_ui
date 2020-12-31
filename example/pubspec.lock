@@ -327,19 +327,19 @@ packages:
     source: hosted
     version: "1.4.0"
   property_ui_annotation:
-    dependency: "direct main"
+    dependency: transitive
     description:
-      path: "../property_ui_annotation"
-      relative: true
-    source: path
-    version: "0.0.1"
+      name: property_ui_annotation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   property_ui_generator:
     dependency: "direct dev"
     description:
       path: "../property_ui_generator"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "1.0.0"
   pub_semver:
     dependency: transitive
     description:

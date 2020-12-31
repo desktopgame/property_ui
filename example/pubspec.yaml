@@ -23,8 +23,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  property_ui_annotation:
-    path: ../property_ui_annotation
 
 
   # The following adds the Cupertino Icons font to your application.
