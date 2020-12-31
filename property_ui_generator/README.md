@@ -26,7 +26,7 @@ class Example {
   }
 }
 ````
-![screenshot](property_ui.png)
+![screenshot](https://user-images.githubusercontent.com/23698404/103415344-05084280-4bc5-11eb-98b0-0068fec0b0e0.png)
 
 The code to place this widget itself looks like this
 Although it is not excerpted here, the classes ExampleUI and ExampleUIState are actually generated.
