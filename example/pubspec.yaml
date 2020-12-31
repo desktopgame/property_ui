@@ -23,6 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  property_ui_annotation:
+    path: ../property_ui_annotation
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -32,6 +34,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^1.10.11
+  property_ui_generator:
+    path: ../property_ui_generator
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
