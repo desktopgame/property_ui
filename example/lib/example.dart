@@ -3,11 +3,17 @@ import 'package:property_ui_annotation/property_ui_annotation.dart';
 class Example {
   @Property(readonly: true, hintText: "enter your name.")
   String name;
-  @Property()
+  @Property(
+    readonly: true,
+  )
   double height;
-  @Property()
+  @Property(
+    readonly: true,
+  )
   int age;
-  @Property()
+  @Property(
+    readonly: true,
+  )
   bool die;
 
   Example() {

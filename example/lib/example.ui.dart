@@ -56,29 +56,10 @@ class ExampleUIState extends State<ExampleUI> {
   Widget build(BuildContext context) {
     return _scrollableColumn(context, [
       ..._header,
-      _inputString("name", "enter your name.", _nameController, null),
-      _inputDouble("height", -32768.0, _target.height, 32768.0, (e) {
-        setState(() {
-          this._target.height = e;
-          if (this._onChanged != null) {
-            this._onChanged(_target, "height");
-          }
-        });
-      }),
-      _inputInt("age", "", _ageController, (e) {
-        this._target.age = int.parse(e);
-        if (this._onChanged != null) {
-          this._onChanged(_target, "age");
-        }
-      }),
-      _inputBool("die", _target.die, (e) {
-        setState(() {
-          this._target.die = e;
-          if (this._onChanged != null) {
-            this._onChanged(_target, "die");
-          }
-        });
-      }),
+      _inputString("name", "enter your name.", true, _nameController, null),
+      _inputDouble("height", -32768.0, _target.height, 32768.0, null),
+      _inputInt("age", "", true, _ageController, null),
+      _inputBool("die", _target.die, null),
       ..._footer,
     ]);
   }
@@ -108,22 +89,24 @@ class ExampleUIState extends State<ExampleUI> {
     ));
   }
 
-  Widget _inputString(String name, String hint,
+  Widget _inputString(String name, String hint, bool readonly,
       TextEditingController controller, void Function(String) onChanged) {
     return _labelWith(
         name,
         TextField(
+          readOnly: readonly,
           controller: controller,
           decoration: new InputDecoration(labelText: hint),
           onChanged: onChanged,
         ));
   }
 
-  Widget _inputInt(String name, String hint, TextEditingController controller,
-      void Function(String) onChanged) {
+  Widget _inputInt(String name, String hint, bool readonly,
+      TextEditingController controller, void Function(String) onChanged) {
     return _labelWith(
         name,
         TextField(
+          readOnly: readonly,
           controller: controller,
           decoration: new InputDecoration(labelText: hint),
           onChanged: onChanged,

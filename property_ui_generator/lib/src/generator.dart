@@ -172,14 +172,15 @@ class PropertyUIGenerator extends Generator {
     for (int i = 0; i < e.fields.length; i++) {
       var field = e.fields[i];
       var prop = props[i];
+      var readonly = prop.readonly ? "true" : "false";
       if (stringChecker.isExactlyType(field.type)) {
         buffer.write(
-            '      _inputString("${prop.displayName}", "${prop.hintText}", _${field.name}Controller,');
+            '      _inputString("${prop.displayName}", "${prop.hintText}", $readonly, _${field.name}Controller,');
         buffer.write(_generateCallback(field, prop));
         buffer.writeln("),");
       } else if (intChecker.isExactlyType(field.type)) {
         buffer.write(
-            '      _inputInt("${prop.displayName}", "${prop.hintText}", _${field.name}Controller,');
+            '      _inputInt("${prop.displayName}", "${prop.hintText}", $readonly, _${field.name}Controller,');
         buffer.write(_generateCallback(field, prop));
         buffer.writeln("),");
       } else if (doubleChecker.isExactlyType(field.type)) {
@@ -222,8 +223,9 @@ class PropertyUIGenerator extends Generator {
     buffer.writeln("  }");
     buffer.writeln("");
     buffer.writeln(
-        "  Widget _inputString(String name, String hint, TextEditingController controller, void Function(String) onChanged) {");
+        "  Widget _inputString(String name, String hint, bool readonly, TextEditingController controller, void Function(String) onChanged) {");
     buffer.writeln("    return _labelWith(name,TextField(");
+    buffer.writeln("      readOnly: readonly,");
     buffer.writeln("      controller: controller,");
     buffer.writeln("      decoration: new InputDecoration(labelText: hint),");
     buffer.writeln("      onChanged: onChanged,");
@@ -231,8 +233,9 @@ class PropertyUIGenerator extends Generator {
     buffer.writeln("  }");
     buffer.writeln("");
     buffer.writeln(
-        "  Widget _inputInt(String name, String hint, TextEditingController controller, void Function(String) onChanged) {");
+        "  Widget _inputInt(String name, String hint, bool readonly, TextEditingController controller, void Function(String) onChanged) {");
     buffer.writeln("    return _labelWith(name, TextField(");
+    buffer.writeln("      readOnly: readonly,");
     buffer.writeln("      controller: controller,");
     buffer.writeln("      decoration: new InputDecoration(labelText: hint),");
     buffer.writeln("      onChanged: onChanged,");
