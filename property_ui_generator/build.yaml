@@ -1,0 +1,14 @@
+targets:
+  $default:
+    builders:
+      property_ui_generator:
+        enabled: true
+
+builders:
+  property_ui_generator:
+    import: "package:property_ui_generator/property_ui_generator.dart"
+    builder_factories: ["propertyUIBuilder"]
+    build_extensions: {".dart": [".ui.g.dart"]}
+    auto_apply: dependents
+    build_to: source
+    applies_builders: ["source_gen|combining_builder"]
