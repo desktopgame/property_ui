@@ -104,11 +104,11 @@ class PropertyUIGenerator extends Generator {
   }
 
   String _codeForClass(ClassElement e) {
-    if (e.fields.length == 0) {
+    if (e.fields.isEmpty) {
       return "";
     }
     var propInfos = _collectAnnotations(e);
-    if (propInfos.length == 0) {
+    if (propInfos.isEmpty) {
       return "";
     }
     const stringChecker = TypeChecker.fromRuntime(String);
