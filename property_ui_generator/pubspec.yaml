@@ -11,6 +11,8 @@ environment:
 dependencies:
   #flutter:
   #  sdk: flutter
+  property_ui_annotation:
+    path: ../property_ui_annotation
 
 dev_dependencies:
   #flutter_test:
