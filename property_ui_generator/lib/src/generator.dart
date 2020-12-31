@@ -42,7 +42,7 @@ class PropertyUIGenerator extends Generator {
       if (checker.hasAnnotationOfExact(field)) {
         var a = checker.firstAnnotationOfExact(field);
         var dispName = a.getField("displayName").toStringValue();
-        if (dispName == null || dispName.length == 0) {
+        if (dispName == null || dispName.isEmpty) {
           dispName = field.name;
         }
         var prop = Property(
