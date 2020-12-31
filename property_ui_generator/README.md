@@ -105,3 +105,9 @@ Run build_runner on your project.
 ````.sh
 flutter packages pub run build_runner build
 ````
+
+## Supported data types
+* String
+* int
+* double
+* bool
