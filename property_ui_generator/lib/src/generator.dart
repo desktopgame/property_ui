@@ -194,6 +194,7 @@ class PropertyUIGenerator extends Generator {
         buffer.write(_generateCallback(field, prop));
         buffer.writeln("),");
       }
+      buffer.write('      Divider(),');
     }
     buffer.writeln("  ..._footer,");
     buffer.writeln('    ]);');

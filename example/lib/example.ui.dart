@@ -57,6 +57,7 @@ class ExampleUIState extends State<ExampleUI> {
     return _scrollableColumn(context, [
       ..._header,
       _inputString("name", "enter your name.", true, _nameController, null),
+      Divider(),
       _inputDouble("height", -32768.0, _target.height, 32768.0, (e) {
         setState(() {
           this._target.height = e;
@@ -65,12 +66,14 @@ class ExampleUIState extends State<ExampleUI> {
           }
         });
       }),
+      Divider(),
       _inputInt("age", "", false, _ageController, (e) {
         this._target.age = int.parse(e);
         if (this._onChanged != null) {
           this._onChanged(_target, "age");
         }
       }),
+      Divider(),
       _inputBool("die", _target.die, (e) {
         setState(() {
           this._target.die = e;
@@ -79,6 +82,7 @@ class ExampleUIState extends State<ExampleUI> {
           }
         });
       }),
+      Divider(),
       ..._footer,
     ]);
   }
