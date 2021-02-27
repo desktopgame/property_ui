@@ -78,7 +78,7 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^1.10.11
-  property_ui_generator: ^1.0.3
+  property_ui_generator: ^1.0.4
 ````
 
 Add @Property annotation to your class.
