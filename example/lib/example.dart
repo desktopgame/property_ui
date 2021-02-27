@@ -17,5 +17,6 @@ class Example {
     this.height = 180;
     this.age = 20;
     this.die = false;
+    this.debugParameter = false;
   }
 }
