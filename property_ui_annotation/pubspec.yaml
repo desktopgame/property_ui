@@ -1,6 +1,6 @@
 name: property_ui_annotation
 description: annotation that support GUI code generation via the `property_ui_generator` package.
-version: 1.0.0
+version: 1.0.1
 #author:
 homepage: https://github.com/desktopgame/property_ui
 
