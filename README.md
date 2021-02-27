@@ -1,5 +1,3 @@
-# property_ui
-
 Generator for `property_ui_annotation`  
 This is useful when you need to arrange a large number of widgets, such as in a configuration screen, and you want each value to be synchronized with the class.  
 This package generates code that inspects the fields marked with annotations and places the appropriate editing widgets.  
@@ -19,17 +17,19 @@ class Example {
   int age;
   @Property()
   bool die;
+  @Property(debug: true)
+  bool debugParameter;
 
   Example() {
     this.name = "user";
     this.height = 180;
     this.age = 20;
     this.die = false;
+    this.debugParameter = false;
   }
 }
 ````
 ![screenshot](https://user-images.githubusercontent.com/23698404/109386888-32f9d100-7941-11eb-8122-c832424dd7c4.png)
-
 
 The code to place this widget itself looks like this
 Although it is not excerpted here, the classes ExampleUI and ExampleUIState are actually generated.
@@ -74,11 +74,11 @@ class _MyHomePageState extends State<MyHomePage> {
 Add packages to your pubspec.yaml.
 ````.yaml
 dependencies:
-  property_ui_annotation: ^1.0.0
+  property_ui_annotation: ^1.0.1
 
 dev_dependencies:
   build_runner: ^1.10.11
-  property_ui_generator: ^1.0.2
+  property_ui_generator: ^1.0.3
 ````
 
 Add @Property annotation to your class.
@@ -94,12 +94,15 @@ class Example {
   int age;
   @Property()
   bool die;
+  @Property(debug: true)
+  bool debugParameter;
 
   Example() {
     this.name = "user";
     this.height = 180;
     this.age = 20;
     this.die = false;
+    this.debugParameter = false;
   }
 }
 ````
