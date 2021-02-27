@@ -94,12 +94,15 @@ class Example {
   int age;
   @Property()
   bool die;
+  @Property(debug: true)
+  bool debugParameter;
 
   Example() {
     this.name = "user";
     this.height = 180;
     this.age = 20;
     this.die = false;
+    this.debugParameter = false;
   }
 }
 ````
