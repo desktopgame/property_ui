@@ -1,6 +1,6 @@
 ## 1.0.3
 
-* support for debug attribute
+* support for debug attribute.
 
 ## 1.0.2
 
