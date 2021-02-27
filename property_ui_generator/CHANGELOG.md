@@ -1,3 +1,7 @@
+## 1.0.3
+
+* support for debug attribute
+
 ## 1.0.2
 
 * fixed a bug that prevented correct code generation when Property annotation was not given.
