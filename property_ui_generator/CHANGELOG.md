@@ -1,3 +1,7 @@
+## 1.0.4
+
+* minor fix.
+
 ## 1.0.3
 
 * support for debug attribute.
