@@ -71,11 +71,11 @@ class _MyHomePageState extends State<MyHomePage> {
 Add packages to your pubspec.yaml.
 ````.yaml
 dependencies:
-  property_ui_annotation: ^1.0.0
+  property_ui_annotation: ^1.0.1
 
 dev_dependencies:
   build_runner: ^1.10.11
-  property_ui_generator: ^1.0.2
+  property_ui_generator: ^1.0.3
 ````
 
 Add @Property annotation to your class.
