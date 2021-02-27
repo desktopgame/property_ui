@@ -205,10 +205,10 @@ packages:
   property_ui_annotation:
     dependency: "direct main"
     description:
-      path: "../property_ui_annotation"
-      relative: true
-    source: path
-    version: "0.0.1"
+      name: property_ui_annotation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   pub_semver:
     dependency: transitive
     description:
