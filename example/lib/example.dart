@@ -9,6 +9,8 @@ class Example {
   int age;
   @Property()
   bool die;
+  @Property(debug: true)
+  bool debugParameter;
 
   Example() {
     this.name = "user";

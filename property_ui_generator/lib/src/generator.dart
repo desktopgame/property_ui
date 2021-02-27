@@ -57,7 +57,8 @@ class PropertyUIGenerator extends Generator {
             hintText: a.getField("hintText").toStringValue(),
             minValue: a.getField("minValue").toDoubleValue(),
             maxValue: a.getField("maxValue").toDoubleValue(),
-            readonly: a.getField("readonly").toBoolValue());
+            readonly: a.getField("readonly").toBoolValue(),
+            debug: a.getField("debug").toBoolValue());
         ret.add(PropertyInfo(field, prop));
       }
     }
@@ -118,6 +119,7 @@ class PropertyUIGenerator extends Generator {
     var buffer = StringBuffer();
     buffer.writeln("import 'package:flutter/material.dart';");
     buffer.writeln("import 'package:flutter/services.dart';");
+    buffer.writeln("import 'package:flutter/foundation.dart';");
     buffer.writeln("import './${classNameToFileName(e.name)}.dart';");
     buffer.writeln("");
     buffer.writeln('class ${e.name}UI extends StatefulWidget {');
@@ -175,38 +177,56 @@ class PropertyUIGenerator extends Generator {
     buffer.writeln("");
     buffer.writeln("  @override");
     buffer.writeln("  Widget build(BuildContext context) {");
-    buffer.writeln('    return _scrollableColumn(context, [');
-    buffer.writeln("      ..._header,");
+    buffer.writeln('    var widgets = List<Widget>();');
+    buffer.writeln('    widgets.addAll(_header);');
     for (int i = 0; i < propInfos.length; i++) {
       var propInfo = propInfos[i];
       var field = propInfo.field;
       var prop = propInfo.prop;
       var readonly = prop.readonly ? "true" : "false";
-      if (stringChecker.isExactlyType(field.type)) {
-        buffer.write(
-            '      _inputString("${prop.displayName}", "${prop.hintText}", $readonly, _${field.name}Controller,');
-        buffer.write(_generateCallback(field, prop));
-        buffer.writeln("),");
-      } else if (intChecker.isExactlyType(field.type)) {
-        buffer.write(
-            '      _inputInt("${prop.displayName}", "${prop.hintText}", $readonly, _${field.name}Controller,');
-        buffer.write(_generateCallback(field, prop));
-        buffer.writeln("),");
-      } else if (doubleChecker.isExactlyType(field.type)) {
-        buffer.write(
-            '      _inputDouble("${prop.displayName}", ${prop.minValue}, _target.${field.name}, ${prop.maxValue},');
-        buffer.write(_generateCallback(field, prop));
-        buffer.writeln("),");
-      } else if (boolChecker.isExactlyType(field.type)) {
-        buffer.write(
-            '      _inputBool("${prop.displayName}", _target.${field.name},');
-        buffer.write(_generateCallback(field, prop));
-        buffer.writeln("),");
+      var spaces = 4;
+      if (prop.debug) {
+        // デバッグビルドの時のみ有効になる場合ifで挟む
+        buffer.writeln("    if(!kReleaseMode) {");
+        spaces = 8;
       }
-      buffer.write('      Divider(),');
+      var indent = "";
+      for (int j = 0; j < spaces; j++) {
+        indent += " ";
+      }
+      if (stringChecker.isExactlyType(field.type)) {
+        buffer.write('${indent}widgets.add(');
+        buffer.write(
+            '_inputString("${prop.displayName}", "${prop.hintText}", $readonly, _${field.name}Controller,');
+        buffer.write(_generateCallback(field, prop));
+        buffer.writeln("));");
+      } else if (intChecker.isExactlyType(field.type)) {
+        buffer.write('${indent}widgets.add(');
+        buffer.write(
+            '_inputInt("${prop.displayName}", "${prop.hintText}", $readonly, _${field.name}Controller,');
+        buffer.write(_generateCallback(field, prop));
+        buffer.writeln("));");
+      } else if (doubleChecker.isExactlyType(field.type)) {
+        buffer.write('${indent}widgets.add(');
+        buffer.write(
+            '_inputDouble("${prop.displayName}", ${prop.minValue}, _target.${field.name}, ${prop.maxValue},');
+        buffer.write(_generateCallback(field, prop));
+        buffer.writeln("));");
+      } else if (boolChecker.isExactlyType(field.type)) {
+        buffer.write('${indent}widgets.add(');
+        buffer
+            .write('_inputBool("${prop.displayName}", _target.${field.name},');
+        buffer.write(_generateCallback(field, prop));
+        buffer.writeln("));");
+      }
+      buffer.writeln('${indent}widgets.add(Divider());');
+      if (prop.debug) {
+        // デバッグビルドの時のみ有効になる場合ifで挟む
+        buffer.writeln("    }");
+      }
     }
-    buffer.writeln("  ..._footer,");
-    buffer.writeln('    ]);');
+    buffer.writeln('    widgets.addAll(_footer);');
+    buffer.writeln('    return _scrollableColumn(context, widgets);');
     buffer.writeln("  }");
     buffer.writeln("");
     buffer.writeln("  // helper methods");

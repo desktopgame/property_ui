@@ -6,6 +6,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
 import './example.dart';
 
 class ExampleUI extends StatefulWidget {
@@ -54,37 +55,49 @@ class ExampleUIState extends State<ExampleUI> {
 
   @override
   Widget build(BuildContext context) {
-    return _scrollableColumn(context, [
-      ..._header,
-      _inputString("name", "enter your name.", true, _nameController, null),
-      Divider(),
-      _inputDouble("height", -32768.0, _target.height, 32768.0, (e) {
-        setState(() {
-          this._target.height = e;
-          if (this._onChanged != null) {
-            this._onChanged(_target, "height");
-          }
-        });
-      }),
-      Divider(),
-      _inputInt("age", "", false, _ageController, (e) {
-        this._target.age = int.parse(e);
+    var widgets = List<Widget>();
+    widgets.addAll(_header);
+    widgets.add(
+        _inputString("name", "enter your name.", true, _nameController, null));
+    widgets.add(Divider());
+    widgets.add(_inputDouble("height", -32768.0, _target.height, 32768.0, (e) {
+      setState(() {
+        this._target.height = e;
         if (this._onChanged != null) {
-          this._onChanged(_target, "age");
+          this._onChanged(_target, "height");
         }
-      }),
-      Divider(),
-      _inputBool("die", _target.die, (e) {
+      });
+    }));
+    widgets.add(Divider());
+    widgets.add(_inputInt("age", "", false, _ageController, (e) {
+      this._target.age = int.parse(e);
+      if (this._onChanged != null) {
+        this._onChanged(_target, "age");
+      }
+    }));
+    widgets.add(Divider());
+    widgets.add(_inputBool("die", _target.die, (e) {
+      setState(() {
+        this._target.die = e;
+        if (this._onChanged != null) {
+          this._onChanged(_target, "die");
+        }
+      });
+    }));
+    widgets.add(Divider());
+    if (!kReleaseMode) {
+      widgets.add(_inputBool("debugParameter", _target.debugParameter, (e) {
         setState(() {
-          this._target.die = e;
+          this._target.debugParameter = e;
           if (this._onChanged != null) {
-            this._onChanged(_target, "die");
+            this._onChanged(_target, "debugParameter");
           }
         });
-      }),
-      Divider(),
-      ..._footer,
-    ]);
+      }));
+      widgets.add(Divider());
+    }
+    widgets.addAll(_footer);
+    return _scrollableColumn(context, widgets);
   }
 
   // helper methods
